@@ -15,9 +15,22 @@ public class UsuarioDaoImp implements UsuarioDao{
 
 
     @Override
-    public List<Usuario> getUsuarios() {
+    public List getUsuarios() {
       String query = "FROM Usuario"; //parecido a sql pero es hibernante no es la tabla es la Clase Usuario
       //objetoconexionconbdatos.ejecutaQuery.lotransforma en lista;
       return  entityManager.createQuery(query).getResultList();
     }
+
+  @Override
+  public void eliminar(int id) {
+     Usuario usuario = entityManager.find(Usuario.class,id);
+     entityManager.remove(usuario);
+  }
+
+  @Override
+  public void registrar(Usuario usuario) {
+    entityManager.merge(usuario);
+  }
+
+
 }

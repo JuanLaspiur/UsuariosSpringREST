@@ -22,7 +22,7 @@ const request = await fetch('/buscarUsuarios', {
   let listadoHTML='';
 
   for(let usuario of usuariosJSONLIST){
-    let usuarioHTML = '<tr><td>'+usuario.id+'</td><td>'+usuario.nombre+' '+ usuario.apellido +'</td><td>'+ usuario.mail +'</td><td>'+ usuario.telefono +'</td><td><a href="#" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a></td></tr>'
+    let usuarioHTML = '<tr><td>'+usuario.id+'</td><td>'+usuario.nombre+' '+ usuario.apellido+'</td><td>'+ usuario.mail +'</td><td>'+ usuario.telefono +'</td><td><a href="#" onClick="eliminarUsuario('+usuario.id+')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a></td></tr>'
     listadoHTML+=usuarioHTML;
   }
   document.querySelector('#usuarios tbody').outerHTML=listadoHTML;
@@ -30,5 +30,23 @@ const request = await fetch('/buscarUsuarios', {
 
   
 
-/*30/11/2023 quede en minuto 1:46:59 */
+}
+
+async function eliminarUsuario(id){
+
+if(!confirm('¿Desea eliminar este usuario?')){
+  return;
+}
+
+  const request = await fetch('/usuario/'+id, {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json', //indica que va a estar usando json
+      'Content-Type': 'application/json'
+    }
+   // body: JSON.stringify({a: 1, b: 'Textual content'}) no es necesario porque no es POST sino GET
+  });
+  
+location.reload();  
+
 }

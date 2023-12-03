@@ -12,7 +12,10 @@ public interface UsuarioDao {
      */
 
 
-    List<Usuario> getUsuarios();
+    public List getUsuarios();
 
 
+    void eliminar(int id);
+
+    void registrar(Usuario usuario);
 }

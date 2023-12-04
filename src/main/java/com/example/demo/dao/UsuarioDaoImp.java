@@ -1,6 +1,8 @@
 package com.example.demo.dao;
 
 import com.example.demo.modelos.Usuario;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
@@ -32,5 +34,23 @@ public class UsuarioDaoImp implements UsuarioDao{
     entityManager.merge(usuario);
   }
 
+  @Override
+  public boolean verificarMailPassword(Usuario usuario) {
+    String query ="FROM Usuario WHERE mail= :mail";
+     List <Usuario> lista = entityManager.createQuery(query)
+            .setParameter("mail",usuario.getMail())
+            .getResultList();
 
+     if(lista.isEmpty()){
+       return false;
+     }
+
+    String passwordHashed = lista.get(0).getPassword();
+    Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+
+    /*si encontro algun usuario me devuelve una lista con los datos, sino no devuelve nada*/
+
+    return   argon2.verify(passwordHashed, usuario.getPassword());
+
+  }
 }

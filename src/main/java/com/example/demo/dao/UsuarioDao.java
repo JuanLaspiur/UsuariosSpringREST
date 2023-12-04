@@ -18,4 +18,6 @@ public interface UsuarioDao {
     void eliminar(int id);
 
     void registrar(Usuario usuario);
+
+    public boolean verificarMailPassword(Usuario usuario);
 }

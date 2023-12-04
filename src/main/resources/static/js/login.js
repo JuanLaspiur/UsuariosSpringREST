@@ -4,27 +4,15 @@ $(document).ready(function() { //funcion que se ejecuta una vez que se haya carg
     
 });
 
-async function registrarUsuarios(){
+async function iniciarSesion(){
 let datos = {};
 
-
-
-datos.nombre =document.getElementById("txtNombre").value;
-datos.apellido =document.getElementById("txtApellido").value;
-datos.mail =document.getElementById("txtMail").value;
+datos.mail = document.getElementById("txtMail").value;
 datos.password =document.getElementById("txtPassword").value;
-
-let repetirPassword = document.getElementById("txtRepetirPassword").value;
-
-if(repetirPassword != datos.password){
-    alert('Las contraseñas no coinciden');
-    return
-}
-
 
 //Para hacer un 'llamado al servidor tenemos que usar una funcion fetch
 
-const request = await fetch('/buscarUsuarios', {
+const request = await fetch('/login', {
     method: 'POST',
     headers: {
       'Accept': 'application/json', //indica que va a estar usando json
@@ -33,7 +21,14 @@ const request = await fetch('/buscarUsuarios', {
     body: JSON.stringify(datos) //agarra cualquier objeto JS y lo combierte en un String de JSON
 
   });
+  const respuesta = await request.text();
 
-  alert('La cuenta fue creada con exito');
-  window.location.href = 'login.html';
+  if (respuesta === 'OK') {
+    window.location.href = 'usuarios.html';
+}else{
+        alert('Las credenciales son incorrectas, por favor intente nuevamente')
+    }
+
+  
+
 }

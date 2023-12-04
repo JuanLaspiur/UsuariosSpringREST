@@ -3,6 +3,8 @@ package com.example.demo.controladores;
 
 import com.example.demo.dao.UsuarioDao;
 import com.example.demo.modelos.Usuario;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -55,9 +57,12 @@ public class UsuarioControlador {
     }
 
 
-    //listado comopleto de usuarios
+
     @RequestMapping(value= "/buscarUsuarios", method = RequestMethod.POST)
     public void registrarUsuario(@RequestBody Usuario usuario){ //Request Body esta conviertiendo el JSon que recibe a un usuario automaticamente
+       Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+       String hash = argon2.hash(1,1024,1, usuario.getPassword());
+        usuario.setPassword(hash);
         usuarioDao.registrar(usuario);
 
     }

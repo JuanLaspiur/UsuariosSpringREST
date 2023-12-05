@@ -19,5 +19,6 @@ public interface UsuarioDao {
 
     void registrar(Usuario usuario);
 
-    public boolean verificarMailPassword(Usuario usuario);
+
+    Usuario obtenerUsuarioVerificado(Usuario usuario);
 }

@@ -23,7 +23,9 @@ const request = await fetch('/login', {
   });
   const respuesta = await request.text();
 
-  if (respuesta === 'OK') {
+  if (respuesta != 'FAIL') {
+    localStorage.token = respuesta;
+    localStorage.mail = datos.mail;
     window.location.href = 'usuarios.html';
 }else{
         alert('Las credenciales son incorrectas, por favor intente nuevamente')

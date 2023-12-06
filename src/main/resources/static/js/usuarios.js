@@ -3,7 +3,8 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() { //funcion que se ejecuta una vez que se haya cargado la pagina
     cargarUsuarios();
-  $('#usuarios').DataTable(); //jQuery para paginación de la tabla
+  $('#usuarios').DataTable();//jQuery para paginación de la tabla
+  document.getElementById("MailJWTSesionIniciada").outerHTML = localStorage.mail;
 });
 
 async function cargarUsuarios(){

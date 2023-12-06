@@ -13,7 +13,8 @@ const request = await fetch('/buscarUsuarios', {
     method: 'GET',
     headers: {
       'Accept': 'application/json', //indica que va a estar usando json
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization':localStorage.token
     }
    // body: JSON.stringify({a: 1, b: 'Textual content'}) no es necesario porque no es POST sino GET
   });
@@ -44,7 +45,8 @@ if(!confirm('¿Desea eliminar este usuario?')){
     method: 'DELETE',
     headers: {
       'Accept': 'application/json', //indica que va a estar usando json
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization':localStorage.token
     }
    // body: JSON.stringify({a: 1, b: 'Textual content'}) no es necesario porque no es POST sino GET
   });

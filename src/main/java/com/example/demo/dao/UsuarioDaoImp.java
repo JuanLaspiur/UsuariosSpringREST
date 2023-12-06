@@ -36,18 +36,19 @@ public class UsuarioDaoImp implements UsuarioDao{
 
   @Override
   public Usuario obtenerUsuarioVerificado(Usuario usuario) {
+      //Consulta a la base de datos, usando JPA Hibernante
     String query ="FROM Usuario WHERE mail= :mail";
 
-    List <Usuario> lista = entityManager.createQuery(query)
+    List <Usuario> lista = entityManager.createQuery(query) //Ejecución de la consulta:
             .setParameter("mail",usuario.getMail())
             .getResultList();
-    //si esta vacia la lista, no hay usuario con esas credenciales
-    if(lista.isEmpty()){
+
+    if(lista.isEmpty()){ //Verificación de la existencia del usuario:
       return null;
     }
 
     String passwordHashed = lista.get(0).getPassword();
-    Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+    Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id); //Verificación de la contraseña utilizando Argon2:
 
     /*si encontro algun usuario me devuelve una lista con los datos, sino no devuelve nada*/
     if(argon2.verify(passwordHashed, usuario.getPassword())){

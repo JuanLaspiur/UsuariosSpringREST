@@ -57,7 +57,7 @@ public class JWTUtil {
         Claims claims = Jwts.parser().setSigningKey(Base64.getDecoder().decode(key)).parseClaimsJws(jwt).getBody();
         return claims.getSubject();
     }
-    /*devuelve el informacion que nosotros le pusimos al token*/
+    /*devuelve el ID USUARIO INFO DEL token*/
     public String getKey(String jwt) {
         Claims claims = Jwts.parser().setSigningKey(Base64.getDecoder().decode(key)).parseClaimsJws(jwt).getBody();
         return claims.getId();

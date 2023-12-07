@@ -17,7 +17,8 @@ public class UsuarioDaoImp implements UsuarioDao{
 
 
     @Override
-    public List getUsuarios() {
+    @Transactional
+    public List<Usuario> getUsuarios() {
       String query = "FROM Usuario"; //parecido a sql pero es hibernante no es la tabla es la Clase Usuario
       //objetoconexionconbdatos.ejecutaQuery.lotransforma en lista;
       return  entityManager.createQuery(query).getResultList();
@@ -31,7 +32,7 @@ public class UsuarioDaoImp implements UsuarioDao{
 
   @Override
   public void registrar(Usuario usuario) {
-    entityManager.merge(usuario);
+      entityManager.merge(usuario);
   }
 
   @Override

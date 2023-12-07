@@ -12,13 +12,13 @@ public interface UsuarioDao {
      */
 
 
-    public List getUsuarios();
+    public List<Usuario> getUsuarios();
 
 
-    void eliminar(int id);
+    public void eliminar(int id);
 
-    void registrar(Usuario usuario);
+    public void registrar(Usuario usuario);
 
 
-    Usuario obtenerUsuarioVerificado(Usuario usuario);
+    public Usuario obtenerUsuarioVerificado(Usuario usuario);
 }

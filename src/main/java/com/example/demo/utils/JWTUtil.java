@@ -54,12 +54,25 @@ public class JWTUtil {
 
 
     public String getValue(String jwt) {
-        Claims claims = Jwts.parser().setSigningKey(Base64.getDecoder().decode(key)).parseClaimsJws(jwt).getBody();
-        return claims.getSubject();
+        try {
+            Claims claims = Jwts.parser().setSigningKey(Base64.getDecoder().decode(key)).parseClaimsJws(jwt).getBody();
+            return claims.getSubject();
+        } catch (Exception e) {
+            // Log the exception for debugging purposes
+            log.error("Error al obtener el valor del token", e);
+            return null;
+        }
     }
-    /*devuelve el ID USUARIO INFO DEL token*/
+
     public String getKey(String jwt) {
-        Claims claims = Jwts.parser().setSigningKey(Base64.getDecoder().decode(key)).parseClaimsJws(jwt).getBody();
-        return claims.getId();
+        try {
+            Claims claims = Jwts.parser().setSigningKey(Base64.getDecoder().decode(key)).parseClaimsJws(jwt).getBody();
+            return claims.getId();
+        } catch (Exception e) {
+            // Log the exception for debugging purposes
+            log.error("Error al obtener la clave del token", e);
+            return null;
+        }
     }
+
 }

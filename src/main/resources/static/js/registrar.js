@@ -14,6 +14,12 @@ datos.apellido =document.getElementById("txtApellido").value;
 datos.mail =document.getElementById("txtMail").value;
 datos.password =document.getElementById("txtPassword").value;
 
+if (!datos.nombre || !datos.apellido || !datos.mail || !datos.password) {
+    alert('Todos los campos son obligatorios');
+    return;
+}
+
+
 let repetirPassword = document.getElementById("txtRepetirPassword").value;
 
 if(repetirPassword != datos.password){
@@ -23,7 +29,7 @@ if(repetirPassword != datos.password){
 
 
 //Para hacer un 'llamado al servidor tenemos que usar una funcion fetch
-
+try{
 const request = await fetch('/buscarUsuarios', {
     method: 'POST',
     headers: {
@@ -33,7 +39,10 @@ const request = await fetch('/buscarUsuarios', {
     body: JSON.stringify(datos) //agarra cualquier objeto JS y lo combierte en un String de JSON
 
   });
+} catch (error) {
+    console.error('Error en la solicitud:', error);
+    alert('Hubo un problema al comunicarse con el servidor');}
 
   alert('La cuenta fue creada con exito');
-  window.location.href = 'login.html';
+ window.location.href = 'login.html';
 }
